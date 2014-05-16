@@ -1,7 +1,7 @@
 var request = require('request');
 var q = require('q');
 var conf = require(__dirname+'/config.js');
-var TIMEOUT = 2000;
+var TIMEOUT = 500;
 var lastTransactionHash = conf.get('LAST_PAYMENT_HASH');
 
 var makeUrl = function(hash){
@@ -38,7 +38,7 @@ function getNextNot (hash) {
 
   request(url, function(error, response, body){
     if(error){
-      deferred.reject(new Error('ERROR:initial call ', error));
+      deferred.reject(new Error('ERROR:request: ', error));
     } else {
       deferred.resolve(body);
     }
@@ -51,7 +51,7 @@ function getNextNot (hash) {
 }
 
 
-var Listner = {
+var Listener = {
   listen: function(){
     getNextNot(lastTransactionHash)
       .then(handleNotification)
@@ -64,7 +64,7 @@ var Listner = {
   }
 };
 
-Listner.listen();
+Listener.listen();
 
 
 
