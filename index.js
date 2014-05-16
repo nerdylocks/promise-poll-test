@@ -10,6 +10,9 @@ var makeUrl = function(hash){
 
 function handleError(err){
   console.log(err);
+
+  //if error is critical
+  //Listener.stop();
 }
 
 function handleNotification(notification){
