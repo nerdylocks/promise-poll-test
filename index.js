@@ -29,20 +29,6 @@ function saveHash(hash){
   }
 }
 
-var Listner = {
-  listen: function(){
-    getNextNot(lastTransactionHash)
-      .then(handleNotification)
-      .then(saveHash)
-      .catch(handleError)
-      .done()
-  },
-  stop: function(){
-    console.log('halting process');
-  }
-};
-
-
 function getNextNot (hash) {
   var deferred = q.defer();
   var url = makeUrl(hash);
@@ -60,6 +46,20 @@ function getNextNot (hash) {
   }, TIMEOUT);
   return deferred.promise;
 }
+
+
+var Listner = {
+  listen: function(){
+    getNextNot(lastTransactionHash)
+      .then(handleNotification)
+      .then(saveHash)
+      .catch(handleError)
+      .done();
+  },
+  stop: function(){
+    console.log('halting process');
+  }
+};
 
 Listner.listen();
 
